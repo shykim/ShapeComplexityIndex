@@ -14,10 +14,13 @@
 ### How to use
 
  -i input surface[obj|vtk]
+ 
  -o output file
+ 
  --format ASCII|KWM
     choose the output file format
       ASCII as a textfile
       KWM as a KWMesh
+      
  -t the template MNI object file
 
