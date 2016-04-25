@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+	<title>
+		Cal_Complexity
+	</title>
+	<description>
+		This command line calculate the local shape complexity using EMD.
+	</description>
+	<version>1.0</version>
+	<documentation-url></documentation-url>
+	<license></license>
+	<contributor>
+		Sun Hyung Kim
+	</contributor>
+	<category>Shape Analysis</category>
+	<acknowledgements></acknowledgements>
+	<parameters advanced="false">
+		<file>
+			<name>InputSurface</name>
+			<longflag>--input</longflag>
+			<label>Input MNI obj(*.obj) or VTK(*.vtk) surface file</label>
+			<flag>i</flag>
+			<description>Input surface data MNI obj or VTK surface file</description>
+			<channel>input</channel>
+			<default></default>
+		</file>
+		
+		<file>
+			<name>InputTemplateSurface</name>
+			<longflag>--templatesurface</longflag>
+			<label>Template surface MNI obj(*.obj) or VTK(*.vtk) surface file</label>
+			<flag>t</flag>
+			<description>Template surface model would be calculated surface area and used for local or global scaled EMD </description>
+			<channel>template</channel>
+			<default></default>
+		</file> 
+		 
+		<float>
+			<name>KernelSize</name>
+			<default>4.0</default>
+			<flag>k</flag>
+			<label>kenel size of shape Index</label>
+			<longflag>--kernelsize</longflag>
+			<description>radius of kernel size using geodesic distance (in mm) </description>
+	 </float>
+	 <integer>
+			<name>StepSize</name>
+			<default>6</default>
+			<flag>s</flag>
+			<label>define the number of bin</label>
+			<longflag>--stepsize</longflag>
+			<description>the number of bin subdivided for shape index (1->3bins, 2->5bins, 3->9bins, .... , 6-> 65bins, 7-> 129bins ....)</description>
+	 </integer>
+		
+		<file>
+			<name>output</name>
+			<flag>o</flag>
+			<longflag>--output</longflag>
+			<label>Output File</label>
+			<description>save complexity with ascii format </description>
+			<channel>output_ascii</channel>
+			<default></default>
+		</file>
+		
+		<string-enumeration>
+			<name>format</name>
+			<flag>f</flag>
+			<longflag>--format</longflag>
+			<label>Output File format type</label>
+			<description>choose file format to save</description>
+			<channel>type of output format</channel>
+			<element>KWM</element>
+			<element>ASCII</element>
+			<default>ASCII</default>
+		</string-enumeration>
+		
+		<boolean>
+			<name>scaleLSA</name>
+			<flag>L</flag>
+			<longflag>--scaleLSA</longflag>
+			<label>scaled local surface area</label>
+			<description>kernel size scaling with local surface area. Provide expected template surface model. Kenel size is scaled by k' = k*(input_SAi/template_SAi), i is vertex.</description>
+			<channel>scaled_localSA</channel>
+			<default></default>
+		</boolean>
+		<boolean>
+			<name>scaleGSA</name>
+			<flag>G</flag>
+			<longflag>--scaleGSA</longflag>
+			<label>scaled global surface area</label>
+			<description>kernel size scaling with global surface area. Provide expected template surface model. Kenel size is scaled by k' = k*[sum(input surface area)/sum(template surface area)]</description>
+			<channel>scaled_globalSA</channel>
+			<default></default>
+		</boolean>
+		
+	</parameters>
+</executable>
