@@ -89,11 +89,11 @@ int main(int argc, char *argv[])
 	
 	// make basic shape histogram
 	int STEP = StepSize;
-	int n_BasicShape =  pow(static_cast<double>(2),STEP) + 1;
-  float step_size = 1/pow(static_cast<double>(2),(STEP-1));
+	int n_BasicShape =  (int)pow(static_cast<double>(2),STEP) + 1;
+	float step_size = (float)1/pow(static_cast<double>(2),(STEP-1));
   
-  std::vector<float> Basis_X(n_BasicShape,0);
-  for(int i=0; i<n_BasicShape; i++)
+  	std::vector<float> Basis_X(n_BasicShape,0);
+  	for(int i=0; i<n_BasicShape; i++)
   	{
   		Basis_X[i] = (-1) + i*step_size;
   	}
@@ -146,9 +146,9 @@ int main(int argc, char *argv[])
 	int maxiter = 100;
 
 	clock_t begin = clock();
-	//for(int i=0; i<n_vertex; i++)
+	for(int i=0; i<n_vertex; i++)
 	//clock_t begin = clock();
-	for(int i=0; i<maxiter; i++)
+	//for(int i=0; i<maxiter; i++)
 	{	
 		
 	  /////////////////// Geodesic diatance -- by Sun Hyung //////////////////////////
@@ -159,10 +159,10 @@ int main(int argc, char *argv[])
           		  
 	  // 2. Extract patch
 	  _N_nbr = MNI_GetMesh->vertex(i)->nNeighbor();
-	  std::cout << "elapsed_secs:" << double (clock() - begin)/ CLOCKS_PER_SEC<< std::endl;
+	  //std::cout << "elapsed_secs:" << double (clock() - begin)/ CLOCKS_PER_SEC<< std::endl;
 	  //INPUT_TRI = Cal->Extract_Patch_ReturnInputTri(i, temp_nbr, temp_pre_nbr, MNI_GetMesh,n_vertex,n_mesh, _N_nbr);
 	  INPUT_TRI = Cal->Extract_Patch_ReturnInputTri(i, temp_nbr, temp_pre_nbr, MNI_GetMesh,n_vertex,n_mesh, _N_nbr, FACE_LOOKUP);
-	  std::cout << "elapsed_secs:" << double (clock() - begin)/ CLOCKS_PER_SEC<< std::endl;
+	  //std::cout << "elapsed_secs:" << double (clock() - begin)/ CLOCKS_PER_SEC<< std::endl;
 	  INPUT_COORD = Cal->Extract_Patch_ReturnInputCoord(temp_nbr, MNI_GetMesh);
 	  START_POINT = Cal->Extract_Patch_ReturnStartPoint(i, temp_nbr);
 	  
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
 		int Test_N = Testing_SI.size();
 		//cout<< "Vertex_ID: " << i << endl;
 		std::vector<float> SI_HIST=Cal->Make_Histogram(&Testing_SI[0], step_size, Test_N);
-	  	std::cout << "elapsed_secs:" << double (clock() - begin) / CLOCKS_PER_SEC<< std::endl;
+	  	//std::cout << "elapsed_secs:" << double (clock() - begin) / CLOCKS_PER_SEC<< std::endl;
 		
 		if (STEP<3)
 		{
@@ -221,13 +221,20 @@ int main(int argc, char *argv[])
 				EMD[i] = 2*Cal->Minimum(temp_EMD_Hdegree, 5);
 			}
 		}
-	  	std::cout << "elapsed_secs final :" << double (clock() - begin) / CLOCKS_PER_SEC << std::endl;
+	  	//std::cout << "elapsed_secs final :" << double (clock() - begin) / CLOCKS_PER_SEC << std::endl;
 		
 	}
 	//clock_t end = clock();
 	//double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	//std::cout << "elapsed_secs:" << elapsed_secs << std::endl;
 	//std::cout << "expected full run time:" << elapsed_secs * n_vertex /3600 / maxiter << std::endl;
+
+	for(int i=0; i<n_vertex; i++){
+		if(EMD[i]>1){
+			EMD[i] = 1;
+		}
+	}
+	
 	
 	if(format == "ASCII")
 	{
