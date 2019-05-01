@@ -1,0 +1,4 @@
+plesse set the pathway "libMesh" library. are in "ShapeComplexityIndex_Geo/lib/"
+
+e.g. setenv DYLD_LIBRARY_PATH ../../../ShapeComplexityIndex_Geo/lib/
+

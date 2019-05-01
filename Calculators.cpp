@@ -92,7 +92,7 @@ vector<float> CCalculators::Make_Histogram(float* In, float bucket_size, float T
 
 float CCalculators::Minimum(float* A, int size)
 { 
-	float temp = 10.0f;
+	float temp = 0.5f;
 	for(int i=0;i<size; i++){
 		if(A[i]<temp){
 			temp = A[i];

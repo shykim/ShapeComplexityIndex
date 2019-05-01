@@ -89,8 +89,8 @@ int main(int argc, char *argv[])
 	
 	// make basic shape histogram
 	int STEP = StepSize;
-	int n_BasicShape =  (int)pow(static_cast<double>(2),STEP) + 1;
-	float step_size = (float)1/pow(static_cast<double>(2),(STEP-1));
+	int n_BasicShape =  pow(static_cast<double>(2),STEP) + 1;
+  	float step_size = 1/pow(static_cast<double>(2),(STEP-1));
   
   	std::vector<float> Basis_X(n_BasicShape,0);
   	for(int i=0; i<n_BasicShape; i++)
@@ -107,7 +107,15 @@ int main(int argc, char *argv[])
 	float* EMD = new float[n_vertex];
 	float* temp_EMD_Ldegree = new float[n_BasicShape];
 	float* temp_EMD_Hdegree = new float[5];	
+
+
+	// Initialize EMD 
+	for(int i=0;i<n_vertex; i++)
+	{
+		EMD[i] = 0;
+	}
 	
+
 	//set kernel size
 	if(scaleLSA == false && scaleGSA == false)
 	{
@@ -143,17 +151,36 @@ int main(int argc, char *argv[])
 	std::vector< std::vector<float> > INPUT_COORD;
 	std::vector<float> Geo_Dist;
 	
-	int maxiter = 100;
+	//int maxiter = 100;
 
-	clock_t begin = clock();
-	for(int i=0; i<n_vertex; i++)
+
+	int _nDivide = nDivide;
+	int _nPART = nPart;
+	int sVertex = 0;
+	int eVertex = 0;
+
+	float temp1 = (float)(_nPART-1)/_nDivide;
+        float temp2 = (float)(_nPART)/_nDivide;
+
+	sVertex = (int)(n_vertex*temp1);
+	eVertex = (int)(n_vertex*temp2);
+
+	if( _nPART >_nDivide)
+	{
+		cout << "nPart is lager than nDivide, SET  1<= nPart <= nDivide" << endl;
+		exit(1);
+	
+	}
+
+
 	//clock_t begin = clock();
+	for(int i=sVertex; i<eVertex; i++)
 	//for(int i=0; i<maxiter; i++)
 	{	
 		
 	  /////////////////// Geodesic diatance -- by Sun Hyung //////////////////////////
 	  // 1.Search neighbour for candiated geodesic distaance
-	   temp_nbr = Cal->Find_Candidate_nbr(MNI_GetMesh, i, 7);
+	  temp_nbr = Cal->Find_Candidate_nbr(MNI_GetMesh, i, 7);
 	  temp_pre_nbr = Cal->Find_Candidate_nbr(MNI_GetMesh, i, 6); 
 	 
           		  
@@ -228,13 +255,6 @@ int main(int argc, char *argv[])
 	//double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	//std::cout << "elapsed_secs:" << elapsed_secs << std::endl;
 	//std::cout << "expected full run time:" << elapsed_secs * n_vertex /3600 / maxiter << std::endl;
-
-	for(int i=0; i<n_vertex; i++){
-		if(EMD[i]>1){
-			EMD[i] = 1;
-		}
-	}
-	
 	
 	if(format == "ASCII")
 	{

@@ -37,20 +37,40 @@
 		 
 		<float>
 			<name>KernelSize</name>
-			<default>4.0</default>
+			<default>3.5</default>
 			<flag>k</flag>
 			<label>kenel size of shape Index</label>
-			<longflag>--kernelsize</longflag>
+			<longflag>--kerenlsize</longflag>
 			<description>radius of kernel size using geodesic distance (in mm) </description>
-	 </float>
-	 <integer>
+	 	</float>
+	 	
+		<integer>
 			<name>StepSize</name>
 			<default>6</default>
 			<flag>s</flag>
 			<label>define the number of bin</label>
 			<longflag>--stepsize</longflag>
 			<description>the number of bin subdivided for shape index (1->3bins, 2->5bins, 3->9bins, .... , 6-> 65bins, 7-> 129bins ....)</description>
-	 </integer>
+		</integer>
+
+
+		<integer>
+			<name>nDivide</name>
+			<default>1</default>
+			<flag>d</flag>
+			<label>devide the number of vertex</label>
+			<longflag>--divide</longflag>
+			<description>subdivided number of vertex to save the processing time </description>
+		</integer>
+
+		<integer>
+			<name>nPart</name>
+			<default>1</default>
+			<flag>p</flag>
+			<label>part of n divide vertex </label>
+			<longflag>--partition</longflag>
+			<description>part of n divide vertex </description>
+		</integer>
 		
 		<file>
 			<name>output</name>
